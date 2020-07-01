@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "betterenchants",
+  "version": "1.0",
+  "name": "BetterEnchants",
+  "description": "Make your enchanting experience better",
+  "authors": [
+    "Decobr"
+  ],
+  "contact": {
+    "sources": "https://github.com/DecobrDev/BetterEnchants"
+  },
+  "license": "GPL-3.0",
+  "icon": "assets/betterenchants/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.decobr.betterenchants.BetterEnchants"
+    ]
+  },
+  "mixins": [
+    "betterenchants.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "libgui": ">=2.0.0",
+    "minecraft": "1.16.x"
+  }
+}

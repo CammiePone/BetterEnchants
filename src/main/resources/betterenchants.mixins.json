@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.decobr.betterenchants.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "EnchantCommandMixin",
+    "ExperienceOrbEntityMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "PlayerInventoryMixin",
+    "ServerPlayerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
