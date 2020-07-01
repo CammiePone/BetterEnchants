@@ -2,6 +2,9 @@
 
 BetterEnchants adds various enchantments and also some improvements to the original enchantment system.
 
+### Download
+You can get BetterEnchants from [CurseForge](https://www.curseforge.com/minecraft/mc-mods/betterenchants)
+
 ### Dependencies
 - [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 - [LibGui](https://github.com/CottonMC/LibGui/releases)
