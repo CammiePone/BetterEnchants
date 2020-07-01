@@ -31,7 +31,7 @@ public class BetterEnchants implements ModInitializer {
         logger.info("Registering commands");
         CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
             dispatcher.register(CommandManager.literal("betterenchants").executes(context -> {
-                MinecraftClient.getInstance().openScreen(new ConfigScreen(new ConfigGUI()));
+                MinecraftClient.getInstance().openScreen(new ConfigScreen(new ConfigGUI(null)));
                 return 1;
             }));
         });
