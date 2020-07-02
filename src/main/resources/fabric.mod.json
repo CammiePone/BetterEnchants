@@ -16,6 +16,9 @@
   "entrypoints": {
     "main": [
       "dev.decobr.betterenchants.BetterEnchants"
+    ],
+    "modmenu": [
+      "dev.decobr.betterenchants.gui.BEModMenuIntegration"
     ]
   },
   "mixins": [

@@ -25,6 +25,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "io.github.cottonmc:LibGui:${project.libgui_version}"
+
+    modImplementation "io.github.prospector:modmenu:1.12.1+build.15" // this should not be shaded
 }
 
 if (project.use_third_party_mods) {
