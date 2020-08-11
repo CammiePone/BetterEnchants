@@ -14,6 +14,9 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Map;
 
@@ -45,44 +48,21 @@ public abstract class ExperienceOrbEntityMixin extends Entity {
     }
 
     /**
-     * @author Decobr + Mojang
-     * @reason To add Repairing, the @Inject I tried isn't working
+     * @author Decobr + Camellias_
+     * @reason To add Repairing with an @Inject
      */
-    @Overwrite
-    public void onPlayerCollision(PlayerEntity player) {
-        if (!this.world.isClient) {
-            if (this.pickupDelay == 0 && player.experiencePickUpDelay == 0) {
-                player.experiencePickUpDelay = 2;
-                player.sendPickup(this, 1);
+    @Inject(method = "onPlayerCollision", at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "net/minecraft/entity/player/PlayerEntity.sendPickup(Lnet/minecraft/entity/Entity;I)V", ordinal = 0))
+    private void onPlayerCollision(PlayerEntity player, CallbackInfo info)
+    {
+        Map.Entry<EquipmentSlot, ItemStack> repairingEntry = EnchantmentHelper.chooseEquipmentWith(BEEnchantments.REPAIRING.getEnchantment(), player, ItemStack::isDamaged);
 
-                Map.Entry<EquipmentSlot, ItemStack> entry = EnchantmentHelper.chooseEquipmentWith(Enchantments.MENDING, player, ItemStack::isDamaged);
-                if (entry != null) {
-                    ItemStack itemStack = entry.getValue();
-                    if (!itemStack.isEmpty() && itemStack.isDamaged()) {
-                        int i = Math.min(this.getMendingRepairAmount(this.amount), itemStack.getDamage());
-                        this.amount -= this.getMendingRepairCost(i);
-                        itemStack.setDamage(itemStack.getDamage() - i);
-                    }
-                }
-
-                Map.Entry<EquipmentSlot, ItemStack> repairingEntry = EnchantmentHelper.chooseEquipmentWith(BEEnchantments.REPAIRING.getEnchantment(), player, ItemStack::isDamaged);
-
-                if (repairingEntry != null) {
-                    ItemStack itemStack = repairingEntry.getValue();
-                    if (!itemStack.isEmpty() && itemStack.isDamaged()) {
-                        int i = Math.min(this.getRepairingRepairAmount(this.amount, itemStack), itemStack.getDamage());
-                        this.amount -= this.getMendingRepairCost(i);
-                        itemStack.setDamage(itemStack.getDamage() - i);
-                    }
-                }
-
-                if (this.amount > 0) {
-                    player.addExperience(this.amount);
-                }
-
-                this.remove();
+        if (repairingEntry != null) {
+            ItemStack itemStack = repairingEntry.getValue();
+            if (!itemStack.isEmpty() && itemStack.isDamaged()) {
+                int i = Math.min(this.getRepairingRepairAmount(this.amount, itemStack), itemStack.getDamage());
+                this.amount -= this.getMendingRepairCost(i);
+                itemStack.setDamage(itemStack.getDamage() - i);
             }
-
         }
     }
 }
